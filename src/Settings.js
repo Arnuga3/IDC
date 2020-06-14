@@ -1,30 +1,62 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeContext, Card, Button, Icon, Text, Input } from 'react-native-elements';
-import {getTimeblocks,setTimeblocks} from './hooks';
+import {getTimeblocks, setTimeblocks} from './hooks';
+
+const TIMEBLOCKS = [
+    {
+        id: 1,
+        title: 'Breakfast',
+        from: 0,
+        to: 11,
+        carbsPerUnit: 0
+    },
+    {
+        id: 2,
+        title: 'Lunch',
+        from: 11,
+        to: 16,
+        carbsPerUnit: 0
+    },
+    {
+        id: 3,
+        title: 'Dinner',
+        from: 16,
+        to: 23,
+        carbsPerUnit: 0
+    }
+];
 
 const Settings = ({ onClose }) => {
     const { theme } = useContext(ThemeContext);
     const styles = stylesWithTheme(theme);
 
     const [error, setError] = useState(false);
-    const [timeBlocks, setTimeBlocks] = useState(null);
-    
-    useEffect(async() => {
-        const storedTimeBlocks = await getTimeblocks();
-        setTimeblocks(storedTimeBlocks);
+
+    const [dataState, setDataState] = useState(TIMEBLOCKS);
+    useEffect(() => {
+        getStoredTimeblocks();
     }, []);
 
-    const handleSave = async () => {
-        try {
-            // if (timeBlocks) await AsyncStorage.setItem('idc_timeblocks', JSON.stringify(timeBlocks))
-        } catch (e) {
-            // saving error
-        }
+    const getStoredTimeblocks = async () => {
+        const storedTimeBlocks = await getTimeblocks();
+        if (storedTimeBlocks)
+            setDataState(storedTimeBlocks);
+    };
+
+    const handleSave = () => {
+        if (dataState) setTimeblocks(dataState);
+        onClose();
+    };
+
+    const handleChange = (tBlock, value) => {
+        const tbs = dataState.map(tb => 
+            tb.id === tBlock.id ? { ...tb, carbsPerUnit: value } : tb
+        );
+        setDataState(tbs);
     };
 
     return (
-        <View>
             <Card>
                 <Text style={styles.title}>Time Block</Text>    
                 <View style={styles.subTitle}>
@@ -32,45 +64,27 @@ const Settings = ({ onClose }) => {
                     <Text>Carbs/Unit</Text>
                 </View>
                 <View>
-                    <Text style={styles.timeBlock}>Breakfast</Text>
-                    <Input
-                        inputStyle={styles.input}
-                        inputContainerStyle={{borderBottomWidth: 0}}
-                        keyboardType='decimal-pad'
-                        maxLength={3}
-                        // onChangeText={value => this.setState({ comment: value })}
-                        errorStyle={{ color: 'pink' }}
-                        errorMessage={error ? error : null}
-                    />
+                    {dataState ?
+                        dataState.map((tb, i) =>
+                            <React.Fragment key={i}>
+                                <Text style={styles.timeBlock}>{tb.title}</Text>
+                                <Input
+                                    value={tb.carbsPerUnit}
+                                    inputStyle={styles.input}
+                                    inputContainerStyle={{borderBottomWidth: 0}}
+                                    keyboardType='decimal-pad'
+                                    maxLength={3}
+                                    onChangeText={value => handleChange(tb, value)}
+                                    errorStyle={{ color: 'pink' }}
+                                    errorMessage={error ? error : null}
+                                />
+                            </React.Fragment>
+                        ) : null
+                    }
+                    
                 </View>
-                <View>
-                    <Text style={styles.timeBlock}>Lunch</Text>
-                    <Input
-                        inputStyle={styles.input}
-                        inputContainerStyle={{borderBottomWidth: 0}}
-                        keyboardType='decimal-pad'
-                        maxLength={3}
-                        // onChangeText={value => this.setState({ comment: value })}
-                        errorStyle={{ color: 'pink' }}
-                        errorMessage={error ? error : null}
-                    />
-                </View>
-                <View>
-                    <Text style={styles.timeBlock}>Dinner</Text>
-                    <Input
-                        inputStyle={styles.input}
-                        inputContainerStyle={{borderBottomWidth: 0}}
-                        keyboardType='decimal-pad'
-                        maxLength={3}
-                        // onChangeText={value => this.setState({ comment: value })}
-                        errorStyle={{ color: 'pink' }}
-                        errorMessage={error ? error : null}
-                    />
-                </View>
-                <Button buttonStyle={styles.button} type='outline' title='Cancel' onPress={onClose}/>
-                <Button buttonStyle={styles.button} title='Save' onPress={onClose}/>
+                <Button buttonStyle={styles.button} title='OK' onPress={handleSave}/>
             </Card>
-        </View>
     );
 };
 
