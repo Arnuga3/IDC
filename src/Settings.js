@@ -57,10 +57,10 @@ const Settings = ({ onClose }) => {
     };
 
     return (
-            <Card>
+            <View style={styles.wrapper}>
                 <Text style={styles.title}>Time Block</Text>    
                 <View style={styles.subTitle}>
-                    <Icon style={{marginLeft: 5, marginRight: 10}} type='font-awesome-5' name='utensils' size={18} color={theme.colors.c_dark_blue}/>
+                    <Icon style={{marginLeft: 5, marginRight: 10}} type='font-awesome-5' name='utensils' size={18} color={theme.colors.c_primary_dark}/>
                     <Text>Carbs/Unit</Text>
                 </View>
                 <View>
@@ -69,7 +69,7 @@ const Settings = ({ onClose }) => {
                             <React.Fragment key={i}>
                                 <Text style={styles.timeBlock}>{tb.title}</Text>
                                 <Input
-                                    value={tb.carbsPerUnit}
+                                    value={tb.carbsPerUnit.toString()}
                                     inputStyle={styles.input}
                                     inputContainerStyle={{borderBottomWidth: 0}}
                                     keyboardType='decimal-pad'
@@ -84,11 +84,14 @@ const Settings = ({ onClose }) => {
                     
                 </View>
                 <Button buttonStyle={styles.button} title='OK' onPress={handleSave}/>
-            </Card>
+            </View>
     );
 };
 
 const stylesWithTheme = theme => StyleSheet.create({
+    wrapper: {
+        padding: 32
+    },
     title: {
         marginTop: 10,
         fontSize: 32,
@@ -99,7 +102,7 @@ const stylesWithTheme = theme => StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 20,
         fontSize: 20,
-        color: theme.colors.c_light_blue
+        color: theme.colors.c_primary_light
     },
     timeBlock: {
         marginLeft: 12,
@@ -114,11 +117,12 @@ const stylesWithTheme = theme => StyleSheet.create({
         fontSize: 38,
         fontWeight: 'bold',
         borderRadius: 5,
-        color: theme.colors.c_dark_blue,
+        color: theme.colors.c_primary_dark,
         flex: 1
     },
     button: {
-        marginBottom: 15
+        marginBottom: 15,
+        backgroundColor: theme.colors.c_primary_dark
     }
 });
 

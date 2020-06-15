@@ -5,10 +5,9 @@ import Home from './src/Home';
 
 const theme = {
   colors: {
-    c_red: '#dc493a',
-    c_dark: '#262626',
-    c_dark_blue: '#006494',
-    c_light_blue: '#4392f1'
+    c_secondary: 'salmon',
+    c_primary_dark: 'orange',
+    c_primary_light: 'gold'
   }
 };
 

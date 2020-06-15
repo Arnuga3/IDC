@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { ThemeContext, Header, Button, Icon } from 'react-native-elements';
+import { View } from 'react-native';
+import { ThemeContext, Header, Button, Icon, Image } from 'react-native-elements';
 import Settings from './Settings';
 import Inputs from './Inputs';
+import { Text } from 'react-native';
 
 const Home = () => {
     const [settingsOpen, setSettingsOpen] = useState(false);
@@ -9,24 +11,28 @@ const Home = () => {
     return (
         <>
             <Header
-                containerStyle={{ backgroundColor: theme.colors.c_dark }}
+                containerStyle={{ backgroundColor: theme.colors.c_primary_light }}
                 centerComponent={
-                    {
-                        text: settingsOpen ? 'Settings' : 'Insulin Dose Calculator',
-                        style: {
-                            color: '#fff',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase'
-                        }
-                    }
+                    <View style={{ height: 100, display: 'flex', alignItems: 'center' }}>
+                        <Image
+                            source={require('./../assets/freestyle.png')}
+                            style={{ width: 250, height: 50 }}
+                        />
+                        <Text>Insulin Dose Calculator</Text>
+                    </View>
                 }
                 rightComponent={
-                    <Button
-                        buttonStyle={{ backgroundColor: 'transparent' }}
-                        icon={<Icon name='settings' color='white' size={24} type='feather'></Icon>}
-                        onPress={() => setSettingsOpen(true)}
-                    />
+                    <View style={{ marginTop: -20 }}>
+                        <Button
+                            buttonStyle={{ backgroundColor: 'transparent' }}
+                            icon={<Icon name='settings' color='black' size={24} type='feather'></Icon>}
+                            onPress={() => setSettingsOpen(true)}
+                        />
+                    </View>
                 }
+                statusBarProps={{
+                    height: 100
+                }}
             />
             {settingsOpen ? <Settings onClose={() => setSettingsOpen(false)}/> : <Inputs/>}
         </>
