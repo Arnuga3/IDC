@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "LibreView",
-    "slug": "LibreView",
+    "name": "Insulin Dose Calculator",
+    "slug": "IDCFL",
+    "description": "Insulin Dose Calculator for FreeStyle Libre",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,6 +24,9 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.arnuga3.idc"
     }
   }
 }

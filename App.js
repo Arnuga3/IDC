@@ -1,30 +1,20 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeProvider } from 'react-native-elements';
-import Home from './src/Home';
+import Navigation from './src/Navigation';
 
 const theme = {
   colors: {
-    c_secondary: 'salmon',
-    c_primary_dark: 'orange',
-    c_primary_light: 'gold'
+    c_secondary: 'rgba(255, 230, 0, 1)',
+    c_primary_dark: '#009999',
+    c_gold: 'gold'
   }
 };
 
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <View style={styles.container}>
-        <Home/>
-      </View>
+        <Navigation/>
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-  },
-});

@@ -1,37 +1,39 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ThemeContext, Card, Button, Icon, Text, Input } from 'react-native-elements';
+import { ThemeContext, Button, Icon, Text, Input } from 'react-native-elements';
 import {getTimeblocks, setTimeblocks} from './hooks';
+import TimePicker from './TimePicker';
 
 const TIMEBLOCKS = [
     {
         id: 1,
         title: 'Breakfast',
         from: 0,
-        to: 11,
-        carbsPerUnit: 0
+        to: 10,
+        carbsPerUnit: 0,
+        icon: 'sunrise'
     },
     {
         id: 2,
         title: 'Lunch',
-        from: 11,
-        to: 16,
-        carbsPerUnit: 0
+        from: 10,
+        to: 15,
+        carbsPerUnit: 0,
+        icon: 'sun'
     },
     {
         id: 3,
         title: 'Dinner',
-        from: 16,
+        from: 15,
         to: 23,
-        carbsPerUnit: 0
+        carbsPerUnit: 0,
+        icon: 'sunset'
     }
 ];
 
-const Settings = ({ onClose }) => {
+const Settings = ({ navigation }) => {
     const { theme } = useContext(ThemeContext);
     const styles = stylesWithTheme(theme);
-
-    const [error, setError] = useState(false);
 
     const [dataState, setDataState] = useState(TIMEBLOCKS);
     useEffect(() => {
@@ -46,7 +48,7 @@ const Settings = ({ onClose }) => {
 
     const handleSave = () => {
         if (dataState) setTimeblocks(dataState);
-        onClose();
+        navigation.navigate('Inputs', { name: 'Inputs' })
     };
 
     const handleChange = (tBlock, value) => {
@@ -56,14 +58,19 @@ const Settings = ({ onClose }) => {
         setDataState(tbs);
     };
 
+    // const clearData = () => {
+    //     setTimeblocks(null);
+    //     setDataState(TIMEBLOCKS);
+    // };
+
     return (
             <View style={styles.wrapper}>
-                <Text style={styles.title}>Time Block</Text>    
-                <View style={styles.subTitle}>
-                    <Icon style={{marginLeft: 5, marginRight: 10}} type='font-awesome-5' name='utensils' size={18} color={theme.colors.c_primary_dark}/>
-                    <Text>Carbs/Unit</Text>
-                </View>
                 <View>
+                    <Text style={styles.title}>Time Block</Text>    
+                    <View style={styles.subTitle}>
+                        <Icon style={{marginLeft: 5, marginRight: 10}} type='font-awesome-5' name='utensils' size={18} color={theme.colors.c_primary_dark}/>
+                        <Text>Carbs / Per 1 Unit</Text>
+                    </View>  
                     {dataState ?
                         dataState.map((tb, i) =>
                             <React.Fragment key={i}>
@@ -75,38 +82,41 @@ const Settings = ({ onClose }) => {
                                     keyboardType='decimal-pad'
                                     maxLength={3}
                                     onChangeText={value => handleChange(tb, value)}
-                                    errorStyle={{ color: 'pink' }}
-                                    errorMessage={error ? error : null}
                                 />
                             </React.Fragment>
                         ) : null
                     }
-                    
+                    <TimePicker/>
                 </View>
-                <Button buttonStyle={styles.button} title='OK' onPress={handleSave}/>
+                <Button buttonStyle={styles.button} title='Update' onPress={handleSave}/>
             </View>
     );
 };
 
 const stylesWithTheme = theme => StyleSheet.create({
     wrapper: {
-        padding: 32
+        padding: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        height: '100%',
+        backgroundColor: 'white'
     },
     title: {
-        marginTop: 10,
-        fontSize: 32,
+        fontSize: 28,
         fontWeight: 'bold'
     },
     subTitle: {
         display: 'flex',
         flexDirection: 'row',
-        marginBottom: 20,
+        marginBottom: 25,
         fontSize: 20,
         color: theme.colors.c_primary_light
     },
     timeBlock: {
         marginLeft: 12,
-        fontSize: 20
+        fontSize: 20,
+        color: 'rgba(0,0,0,.5)'
     },
     input: {
         paddingLeft: 12,
@@ -114,16 +124,17 @@ const stylesWithTheme = theme => StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,.05)',
         borderColor: 'transparent',
         padding: 8,
-        fontSize: 38,
+        fontSize: 20,
         fontWeight: 'bold',
         borderRadius: 5,
-        color: theme.colors.c_primary_dark,
         flex: 1
     },
     button: {
-        marginBottom: 15,
         backgroundColor: theme.colors.c_primary_dark
-    }
+    },
+    // buttonClear: {
+    //     backgroundColor: 'rgba(0,0,0,.3)'
+    // }
 });
 
 export default Settings;
