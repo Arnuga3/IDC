@@ -4,6 +4,8 @@ import { ThemeContext, Button, Icon, Text, Input, Overlay } from 'react-native-e
 import {getTimeblocks} from './hooks';
 import ResultOverlay from './ResultOverlay';
 
+import { AdMobBanner } from 'expo-ads-admob';
+
 const UP = 'arrow-up';
 const UPRIGHT = 'arrow-up-right';
 const RIGHT = 'arrow-right';
@@ -30,7 +32,7 @@ const activeArrowProps = {
     type: 'feather'
 };
 
-const Inputs = () => {
+const Calculator = () => {
     const { theme } = useContext(ThemeContext);
     const styles = stylesWithTheme(theme);
 
@@ -50,7 +52,7 @@ const Inputs = () => {
 
         const currentTimeBlock = timeBlocks.filter(tb => hour >= tb.from && hour <= tb.to)[0];
 
-        if (currentTimeBlock.carbsPerUnit > 0 && carbs && arrow) {
+        if (currentTimeBlock && currentTimeBlock.carbsPerUnit > 0 && carbs && arrow) {
             units = carbs / currentTimeBlock.carbsPerUnit;
             correction = units * arrow.percent;
             rawResult = Math.round((arrow.operator === 'add' ? units + correction : units - correction) * 100) / 100;
@@ -116,6 +118,12 @@ const Inputs = () => {
                 <Button buttonStyle={styles.calcBtn} title='Calculate' onPress={calculate}/>
             </View>
            
+            <AdMobBanner
+                bannerSize="fullBanner"
+                adUnitID="ca-app-pub-3940256099942544/6300978111"
+                servePersonalizedAds
+            />
+
             {open ? <ResultOverlay data={data} open={open} onClose={() => setOpen(false)}/> : null }
             {errorOpen ?
                 <Overlay isVisible={errorOpen} onBackdropPress={() => setErrorOpen(false)}>
@@ -129,17 +137,17 @@ const Inputs = () => {
 
 const stylesWithTheme = theme => StyleSheet.create({
     container: {
-        backgroundColor: theme.colors.c_secondary
+        backgroundColor: theme.colors.c_secondary,
+        height: '100%'
     },
     wrapper: {
         marginTop: 10,
         marginLeft: 8,
         marginRight: 8,
-        marginBottom: 10,
         padding: 42,
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
+        flexGrow: 1,
         justifyContent: 'space-between',
         backgroundColor: 'white',
         borderTopLeftRadius: 50,
@@ -196,4 +204,4 @@ const stylesWithTheme = theme => StyleSheet.create({
     }
 });
 
-export default Inputs;
+export default Calculator;

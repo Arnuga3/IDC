@@ -26,7 +26,10 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.arnuga3.idc"
+      "package": "com.arnuga3.idc",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3501676624733022~3518172139"
+      }
     }
   }
 }

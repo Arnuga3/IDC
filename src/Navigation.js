@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Settings from './Settings';
-import Inputs from './Inputs';
+import Calculator from './Calculator';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { ThemeContext, Button, Icon, Image } from 'react-native-elements';
@@ -12,10 +12,12 @@ const Navigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName='Home' screenOptions={{ headerStyle: { backgroundColor: theme.colors.c_secondary, elevation: 0 } }}>
-                <Stack.Screen name='Inputs'
+                <Stack.Screen
+                    name='Calculator'
+                    component={Calculator}
                     options={({ navigation }) => ({
                         headerTitle: () => <Image
-                            source={require('./../assets/freestyle.png')}
+                            source={require('./../assets/libreidc.png')}
                             style={{ width: 250, height: 50 }}
                         />,
                         headerRight: () =>
@@ -26,19 +28,8 @@ const Navigation = () => {
                             />,
                         headerTitleAlign: 'center'
                     })}
-                    component={Inputs}
                 />
-                <Stack.Screen name='Settings' component={Settings}
-                    options={{
-                        headerTitleAlign: 'center',
-                        // headerRight: () =>
-                        //     <Button
-                        //         buttonStyle={{ backgroundColor: 'transparent', marginRight: 10 }}
-                        //         icon={<Icon color='black' name='trash' type='feather'/>}
-                        //         onPress={() => {}}
-                        //     /> 
-                    }}
-                />
+                <Stack.Screen name='Settings' component={Settings} options={{ headerTitleAlign: 'center' }}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
