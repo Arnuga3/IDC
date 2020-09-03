@@ -138,10 +138,7 @@ const stylesWithTheme = theme => StyleSheet.create({
     },
     button: {
         backgroundColor: theme.colors.c_primary_dark
-    },
-    // buttonClear: {
-    //     backgroundColor: 'rgba(0,0,0,.3)'
-    // }
+    }
 });
 
 export default Settings;

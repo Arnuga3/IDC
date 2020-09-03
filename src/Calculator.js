@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeContext, Button, Icon, Text, Input, Overlay } from 'react-native-elements';
-import {getTimeblocks} from './hooks';
+import {getTimeblocks, getIsAgreedNote} from './hooks';
+import WarningOverlay from './WarningOverlay';
 import ResultOverlay from './ResultOverlay';
 
 import { AdMobBanner } from 'expo-ads-admob';
@@ -36,11 +37,22 @@ const Calculator = () => {
     const { theme } = useContext(ThemeContext);
     const styles = stylesWithTheme(theme);
 
+    const [openWarning, setOpenWarning] = useState(false);
     const [open, setOpen] = useState(false);
     const [errorOpen, setErrorOpen] = useState(false);
     const [arrow, setArrow] = useState(null);
     const [carbs, setCarbs] = useState(null);
     const [data, setData] = useState(null);
+
+    useEffect(() => {
+        checkWarningReadAndAgreed();
+    }, []);
+
+
+    const checkWarningReadAndAgreed = async () => {
+        const agreed = await getIsAgreedNote();
+        if (!agreed) setOpenWarning(true);
+    };
 
     const calculate = async () => {
         const hour = new Date().getHours();
@@ -124,6 +136,7 @@ const Calculator = () => {
                 servePersonalizedAds
             />
 
+            {openWarning ? <WarningOverlay isVisible={openWarning} onClose={() => setOpenWarning(false)} /> : null }
             {open ? <ResultOverlay data={data} open={open} onClose={() => setOpen(false)}/> : null }
             {errorOpen ?
                 <Overlay isVisible={errorOpen} onBackdropPress={() => setErrorOpen(false)}>
