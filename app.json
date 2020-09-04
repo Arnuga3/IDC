@@ -1,12 +1,10 @@
 {
   "expo": {
     "name": "Insulin Dose Calculator",
-    "slug": "IDCFL",
-    "description": "Insulin Dose Calculator for FreeStyle Libre",
+    "slug": "LibreIDC",
+    "description": "Insulin Dose Calculator",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
     "version": "1.1.0",
     "orientation": "portrait",
@@ -22,11 +20,11 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "package": "com.arnuga3.idc"
+      "package": "com.arnuga3.idc",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-3501676624733022~3518172139"
+      }
     }
   }
 }

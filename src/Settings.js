@@ -2,7 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeContext, Button, Icon, Text, Input } from 'react-native-elements';
 import {getTimeblocks, setTimeblocks} from './hooks';
-import TimePicker from './TimePicker';
+
+import { AdMobBanner } from 'expo-ads-admob';
 
 const TIMEBLOCKS = [
     {
@@ -48,7 +49,7 @@ const Settings = ({ navigation }) => {
 
     const handleSave = () => {
         if (dataState) setTimeblocks(dataState);
-        navigation.navigate('Inputs', { name: 'Inputs' })
+        navigation.navigate('Calculator', { name: 'Calculator' })
     };
 
     const handleChange = (tBlock, value) => {
@@ -58,12 +59,8 @@ const Settings = ({ navigation }) => {
         setDataState(tbs);
     };
 
-    // const clearData = () => {
-    //     setTimeblocks(null);
-    //     setDataState(TIMEBLOCKS);
-    // };
-
     return (
+        <View style={styles.container}>
             <View style={styles.wrapper}>
                 <View>
                     <Text style={styles.title}>Time Block</Text>    
@@ -86,20 +83,30 @@ const Settings = ({ navigation }) => {
                             </React.Fragment>
                         ) : null
                     }
-                    <TimePicker/>
                 </View>
                 <Button buttonStyle={styles.button} title='Update' onPress={handleSave}/>
             </View>
+            
+            <AdMobBanner
+                bannerSize="fullBanner"
+                adUnitID="ca-app-pub-3940256099942544/6300978111"
+                servePersonalizedAds
+            />
+
+        </View>
     );
 };
 
 const stylesWithTheme = theme => StyleSheet.create({
+    container: {
+        height: '100%'
+    },  
     wrapper: {
         padding: 50,
         display: 'flex',
+        flexGrow: 1,
         flexDirection: 'column',
         justifyContent: 'space-between',
-        height: '100%',
         backgroundColor: 'white'
     },
     title: {
@@ -131,10 +138,7 @@ const stylesWithTheme = theme => StyleSheet.create({
     },
     button: {
         backgroundColor: theme.colors.c_primary_dark
-    },
-    // buttonClear: {
-    //     backgroundColor: 'rgba(0,0,0,.3)'
-    // }
+    }
 });
 
 export default Settings;
