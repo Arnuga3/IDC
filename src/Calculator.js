@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, ToastAndroid } from 'react-native';
 import { ThemeContext, Button, Icon, Text, Input, Overlay } from 'react-native-elements';
 import {getTimeblocks, getIsAgreedNote} from './hooks';
 import WarningOverlay from './WarningOverlay';
@@ -83,15 +83,25 @@ const Calculator = () => {
             setOpen(true);
 
         } else {
-            setErrorOpen(true);
+            showErrorToast();
         }
+    };
+
+    const showErrorToast = () => {
+        ToastAndroid.showWithGravityAndOffset(
+            errorMsg(),
+            ToastAndroid.SHORT,
+            ToastAndroid.CENTER,
+            25,
+            50
+        );
     };
 
     const errorMsg = () => {
         let msg = '';
-        if (!arrow) msg +='Trend Arrow is not selected \n';
-        if (!carbs) msg +='Carbs are missing \n';
-        if (arrow && carbs) msg += 'Time block or time block\'s value is missing';
+        if (!arrow) msg +='Trend Arrow is not selected. ';
+        if (!carbs) msg +='Carbs are missing. ';
+        if (arrow && carbs) msg += 'Time block\'s information is missing. Go to Settings';
         return msg;
     ;}
 
@@ -132,18 +142,12 @@ const Calculator = () => {
            
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3501676624733022/9090256537"
+                //adUnitID="ca-app-pub-3501676624733022/9090256537"
                 servePersonalizedAds
             />
 
             {openWarning ? <WarningOverlay open={openWarning} onClose={() => setOpenWarning(false)} /> : null }
             {open ? <ResultOverlay data={data} open={open} onClose={() => setOpen(false)}/> : null }
-            {errorOpen ?
-                <Overlay isVisible={errorOpen} onBackdropPress={() => setErrorOpen(false)}>
-                    <Text>{errorMsg()}</Text>
-                </Overlay>
-                : null
-            }
         </View>
     );
 };

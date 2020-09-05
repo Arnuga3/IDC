@@ -10,14 +10,14 @@ const TIMEBLOCKS = [
         id: 1,
         title: 'Breakfast',
         from: 0,
-        to: 10,
+        to: 11,
         carbsPerUnit: 0,
         icon: 'sunrise'
     },
     {
         id: 2,
         title: 'Lunch',
-        from: 10,
+        from: 11,
         to: 15,
         carbsPerUnit: 0,
         icon: 'sun'
@@ -71,7 +71,10 @@ const Settings = ({ navigation }) => {
                     {dataState ?
                         dataState.map((tb, i) =>
                             <React.Fragment key={i}>
-                                <Text style={styles.timeBlock}>{tb.title}</Text>
+                                <View style={styles.label}>
+                                    <Text style={styles.timeBlock}>{tb.title}</Text>
+                                    <Text style={styles.timeBlockRange}>{`${tb.from}.00 - ${tb.to}.00`}</Text>
+                                </View>
                                 <Input
                                     value={tb.carbsPerUnit.toString()}
                                     inputStyle={styles.input}
@@ -89,7 +92,7 @@ const Settings = ({ navigation }) => {
             
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3501676624733022/9090256537"
+                //adUnitID="ca-app-pub-3501676624733022/9090256537"
                 servePersonalizedAds
             />
 
@@ -120,10 +123,21 @@ const stylesWithTheme = theme => StyleSheet.create({
         fontSize: 20,
         color: theme.colors.c_primary_light
     },
+    label: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'baseline'
+    },
     timeBlock: {
         marginLeft: 12,
         fontSize: 20,
         color: 'rgba(0,0,0,.5)'
+    },
+    timeBlockRange: {
+        marginRight: 12,
+        fontSize: 12,
+        color: theme.colors.c_primary_dark
     },
     input: {
         paddingLeft: 12,
