@@ -62,7 +62,7 @@ const Calculator = () => {
         let rawResult = 0;
         let result = 0;
 
-        const currentTimeBlock = timeBlocks.filter(tb => hour >= tb.from && hour <= tb.to)[0];
+        const currentTimeBlock = timeBlocks ? timeBlocks.filter(tb => hour >= tb.from && hour <= tb.to)[0] : null;
 
         if (currentTimeBlock && currentTimeBlock.carbsPerUnit > 0 && carbs && arrow) {
             units = carbs / currentTimeBlock.carbsPerUnit;
@@ -132,11 +132,11 @@ const Calculator = () => {
            
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3940256099942544/6300978111"
+                adUnitID="ca-app-pub-3501676624733022/9090256537"
                 servePersonalizedAds
             />
 
-            {openWarning ? <WarningOverlay isVisible={openWarning} onClose={() => setOpenWarning(false)} /> : null }
+            {openWarning ? <WarningOverlay open={openWarning} onClose={() => setOpenWarning(false)} /> : null }
             {open ? <ResultOverlay data={data} open={open} onClose={() => setOpen(false)}/> : null }
             {errorOpen ?
                 <Overlay isVisible={errorOpen} onBackdropPress={() => setErrorOpen(false)}>

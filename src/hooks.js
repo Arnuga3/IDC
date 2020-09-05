@@ -9,9 +9,9 @@ export const getIsAgreedNote = async () => {
     }
 }
 
-export const agreeToNote = async agree => {
+export const agreeToNote = async () => {
     try {
-        await AsyncStorage.setItem('warningNote', JSON.stringify(agree));
+        await AsyncStorage.setItem('warningNote', JSON.stringify(true));
     } catch(e) {
         console.error(e);
     }

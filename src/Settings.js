@@ -89,7 +89,7 @@ const Settings = ({ navigation }) => {
             
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3940256099942544/6300978111"
+                adUnitID="ca-app-pub-3501676624733022/9090256537"
                 servePersonalizedAds
             />
 

@@ -1,10 +1,16 @@
 import React, { useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ThemeContext, Button, Icon, Text, Overlay } from 'react-native-elements';
+import {agreeToNote} from './hooks';
 
 const WarningOverlay = ({ open, onClose }) => {
     const { theme } = useContext(ThemeContext);
     const styles = stylesWithTheme(theme);
+
+    const handleUnderstood = async () => {
+        agreeToNote();
+        onClose();
+    };
 
     return (
         <Overlay overlayStyle={styles.overlay} isVisible={open} onBackdropPress={onClose}>
@@ -13,15 +19,19 @@ const WarningOverlay = ({ open, onClose }) => {
                 <Text style={styles.message}>
                     {
 `
-    Libre IDC is a simple tool developed by a FreeStyle Libre system's user and enthusiast and is not an official recommendation.
+User MUST:
+    - Read the user manual and make sure everything is clear
+    - Check with Health Practice if the Libre IDC calculator is suitable
+    - Take responsibility and don't rely blindly on the tool
 
-    Please read a user guide carefully and check with your Health Practice if Libre IDC is right for you before using it to calculate your insulin dose.
-
-    Libre IDC users MUST check every calculation result and MUST NOT blindly rely on the tool's results. 
+Libre IDC MUST be used for one or more reasons:
+    - Learn how to calculate an insulin dose
+    - Check the results of your calculations
+    - Reduce time spent on calculations
 `
                     }
                 </Text>
-                <Button buttonStyle={styles.button} title='Understood' onPress={onClose}/>
+                <Button buttonStyle={styles.button} title='Understood' onPress={handleUnderstood}/>
                 <Text style={styles.smallText}>{'The message will not be shown again'}</Text>
             </View>
         </Overlay>
