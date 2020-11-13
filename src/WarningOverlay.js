@@ -19,19 +19,12 @@ const WarningOverlay = ({ open, onClose }) => {
                 <Text style={styles.message}>
                     {
 `
-User MUST:
-    - Read the user manual and make sure everything is clear
-    - Check with Health Practice if the Libre IDC calculator is suitable
-    - Take responsibility and don't rely blindly on the tool
-
-Libre IDC MUST be used for one or more reasons:
-    - Learn how to calculate an insulin dose
-    - Check the results of your calculations
-    - Reduce time spent on calculations
+Libre IDC uses a simple calculation process based on the amount of carbohydrates per unit proportion over a specific time of day and adjusting the insulin dose based on the blood glucose trend arrows.
+Users of this app MUST read the user manual section and MUST get approval from Healt Practice before using Libre IDC to calculate their insulin dose. Libre IDC app's goal is to improve diabetes management and this can be achieved with proper use. By choosing "Continue" you are taking responsibility. Be mindful, be safe.
 `
                     }
                 </Text>
-                <Button buttonStyle={styles.button} title='Understood' onPress={handleUnderstood}/>
+                <Button buttonStyle={styles.button} title='Continue' onPress={handleUnderstood}/>
                 <Text style={styles.smallText}>{'The message will not be shown again'}</Text>
             </View>
         </Overlay>

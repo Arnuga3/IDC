@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, View, ToastAndroid } from 'react-native';
-import { ThemeContext, Button, Icon, Text, Input, Overlay } from 'react-native-elements';
+import { ThemeContext, Button, Icon, Text, Input } from 'react-native-elements';
 import {getTimeblocks, getIsAgreedNote} from './hooks';
 import WarningOverlay from './WarningOverlay';
 import ResultOverlay from './ResultOverlay';
@@ -142,7 +142,7 @@ const Calculator = () => {
            
             <AdMobBanner
                 bannerSize="fullBanner"
-                //adUnitID="ca-app-pub-3501676624733022/9090256537"
+                // adUnitID=""
                 servePersonalizedAds
             />
 
