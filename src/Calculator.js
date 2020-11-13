@@ -142,7 +142,7 @@ const Calculator = () => {
            
             <AdMobBanner
                 bannerSize="fullBanner"
-                // adUnitID=""
+                // adUnitID="git "
                 servePersonalizedAds
             />
 

@@ -96,8 +96,7 @@ We strive to extend the functionality of the application and make it more flexib
             
             <AdMobBanner
                 bannerSize="fullBanner"
-                adUnitID="ca-app-pub-3501676624733022/9090256537"
-                // adUnitID="ca-app-pub-3940256099942544/6300978111"
+                // adUnitID=""
                 servePersonalizedAds
             />
 
