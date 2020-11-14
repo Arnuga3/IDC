@@ -1,20 +1,17 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ThemeProvider } from 'react-native-elements';
-import Navigation from './src/Navigation';
-
-const theme = {
-  colors: {
-    c_secondary: 'rgba(255, 230, 0, 1)',
-    c_primary_dark: '#009999',
-    c_gold: 'gold'
-  }
-};
+import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
+import { AppNavigator } from './src/AppNavigator';
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import * as eva from '@eva-design/eva';
+import { default as theme } from './theme.json';
 
 export default function App() {
-  return (
-    <ThemeProvider theme={theme}>
-        <Navigation/>
-    </ThemeProvider>
-  );
+	return (
+		<>
+			<IconRegistry icons={EvaIconsPack} />
+			<ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+				<AppNavigator />
+			</ApplicationProvider>
+		</>
+	);
 }
