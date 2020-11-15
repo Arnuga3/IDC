@@ -21,7 +21,7 @@ const AddMealButton = styled(Button)`
 `;
 
 const PlusIcon = (props) => (
-    <Icon {...props} name='plus'/>
+    <Icon {...props} name='plus-circle'/>
 );
 
 const Home = ({ navigation }) => {
