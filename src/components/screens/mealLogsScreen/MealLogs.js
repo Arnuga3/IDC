@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native';
-import { Button, Divider, Layout, Text, TopNavigation } from '@ui-kitten/components';
+import { Button, Divider, Layout, TopNavigation } from '@ui-kitten/components';
 import styled from 'styled-components';
 
 const Container = styled(SafeAreaView)`
@@ -13,7 +13,7 @@ const StyledLayout = styled(Layout)`
     align-items: center;
 `;
 
-const UserScreen = ({ navigation }) => {
+const MealLogs = ({ navigation }) => {
 
     const navigateDetails = () => {
         navigation.navigate('Home');
@@ -24,10 +24,10 @@ const UserScreen = ({ navigation }) => {
             <TopNavigation title='DiDi Log' alignment='center'/>
             <Divider/>
             <StyledLayout>
-                <Button onPress={navigateDetails}>User</Button>
+                <Button onPress={navigateDetails}>History</Button>
             </StyledLayout>
         </Container>
     );
 };
 
-export default UserScreen;
+export default MealLogs;
