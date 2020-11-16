@@ -1,8 +1,8 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { Button, Divider, Layout, Icon } from '@ui-kitten/components';
 import styled from 'styled-components';
-import AppTopBar from './../../AppTopBar';
+import { SafeAreaView } from 'react-native';
+import { Button, Layout, Icon } from '@ui-kitten/components';
+import AppTopBar from '../../common/AppTopBar';
 
 const Container = styled(SafeAreaView)`
     flex: 1;
@@ -26,16 +26,16 @@ const PlusIcon = (props) => (
 
 const Home = ({ navigation }) => {
     const navigateToNewMealScreen = () => {
-        navigation.navigate('NewMeal');
+        navigation.navigate('MealNew');
     };
 
     return (
         <Container>
             <AppTopBar/>
-            <Divider/>
             <StyledLayout>
                 <AddMealButton
                     size='large'
+                    status='info'
                     accessoryLeft={PlusIcon}
                     onPress={navigateToNewMealScreen}
                 >

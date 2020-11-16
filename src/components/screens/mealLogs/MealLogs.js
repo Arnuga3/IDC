@@ -1,7 +1,8 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native';
-import { Button, Divider, Layout, TopNavigation } from '@ui-kitten/components';
 import styled from 'styled-components';
+import { SafeAreaView } from 'react-native';
+import { Button, Layout } from '@ui-kitten/components';
+import AppTopBar from '../../common/AppTopBar';
 
 const Container = styled(SafeAreaView)`
     flex: 1;
@@ -21,8 +22,7 @@ const MealLogs = ({ navigation }) => {
     
     return (
         <Container>
-            <TopNavigation title='DiDi Log' alignment='center'/>
-            <Divider/>
+            <AppTopBar/>
             <StyledLayout>
                 <Button onPress={navigateDetails}>History</Button>
             </StyledLayout>

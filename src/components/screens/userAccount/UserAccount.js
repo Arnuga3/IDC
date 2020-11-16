@@ -1,7 +1,7 @@
 import React from 'react';
+import styled from 'styled-components';
 import { SafeAreaView } from 'react-native';
 import { Button, Divider, Layout, TopNavigation } from '@ui-kitten/components';
-import styled from 'styled-components';
 
 const Container = styled(SafeAreaView)`
     flex: 1;
